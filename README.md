@@ -1,164 +1,191 @@
-# employment-payroll-management-system
-🧾 Employment Payroll Management System (C)
-📌 Project Overview
+<div align="center">
 
-The Employment Payroll Management System is a console-based application developed in C that manages employee records and automates payroll calculations.
-The system uses role-based authentication, where different users have different permissions, and the Admin has the highest level of access.
+# 💼 Employment Payroll Management System  
+### A File-Based Payroll Management System using C
 
-This project demonstrates the practical use of C programming concepts, file handling, and modular programming, following real-world software design practices.
+</div>
 
-🎯 Objectives
+---
 
-To manage employee records efficiently
+## 📌 Problem Statement
 
-To implement secure login and registration
+In many organizations, payroll and employee records are managed manually, which leads to:
 
-To provide role-based access control
+- Data redundancy and data loss  
+- Calculation errors in salary processing  
+- Lack of security and access control  
+- Difficulty in maintaining employee records  
 
-To automate salary calculation and payroll generation
+There is a need for a **secure, automated, and role-based payroll management system** that ensures accuracy, data persistence, and proper authorization.
 
-To store data permanently using files
+---
 
-👥 User Roles & Permissions
-🔐 Admin (Highest Access)
+## 👥 System Users
 
-Register new users
+| User Role | Description |
+|----------|------------|
+| **Admin** | Has full access to the system, manages employees and payroll |
+| **Employee (User)** | Can view personal details and salary information |
 
-Add, view, update, and delete employee records
+---
 
-Generate payroll
+## 🔐 Authentication & Authorization
 
-View salary reports
+The system uses a **file-based authentication mechanism**.
 
-Full system control
+### Authentication
+- User registration (Admin / Employee)
+- Secure login using username and password
+- Credentials stored in data files
 
-👤 User (Employee)
+### Authorization
+- Role-based access control
+- Admin and Employee have separate permissions
+- Unauthorized access is restricted
 
-Login to the system
+| Role | Permissions |
+|-----|------------|
+| Admin | Add/update employees, process payroll, view all records |
+| Employee | View own profile and salary details |
 
-View personal details
+---
 
-View salary slip
+## 🧱 Software Architecture
+```
+User
+↓
+Menu System
+↓
+Login & Authentication
+↓
+Role Validation (Admin / Employee)
+↓
+Function Execution
+↓
+File Read / Write
+↓
+Data Display
+```
+---
 
-Limited access (cannot modify records)
+## 🗄️ File-Based Database Design
 
-⚙️ Features
+The system uses **file handling** for permanent data storage.
 
-Registration and Login system
+| File Name | Purpose |
+|---------|---------|
+| admins.dat | Stores admin credentials |
+| employees.dat | Stores employee personal details |
+| payroll.dat | Stores salary and payroll records |
+| logs.dat | Stores system activity logs (optional) |
 
-Role-based authentication (Admin/User)
+---
 
-Menu-driven interface
+## 📊 Data
 
-Employee management
+### Employee Data
+- Employee ID
+- Name
+- Role
+- Basic Salary
+- Allowances
+- Deductions
 
-Payroll calculation
+### Payroll Data
+- Employee ID
+- Gross Salary
+- Net Salary
+- Payment Status
 
-File-based data storage
+---
 
-Modular and scalable code structure
+## 🧩 Data Structures
 
-🛠️ Technologies Used
+The system uses **structures** to organize data efficiently.
 
-Programming Language: C
+```c
+struct Employee {
+    int id;
+    char name[50];
+    char role[20];
+    float basic_salary;
+};
+struct Payroll {
+    int emp_id;
+    float gross_salary;
+    float net_salary;
+};
+```
+---
+🔄 Data Flow
 
-Concepts Used:
+1. User provides input through menu
 
-Structures
+2. Authentication module validates credentials
 
-Functions
+3. Role is checked (Admin / Employee)
 
-File Handling
+4. Allowed function is executed
 
-Conditional Statements
+5. Data is read/written from files
 
-Loops
+6. Output is displayed to the user
 
-Version Control: Git & GitHub
+---
 
-📁 Project Directory Structure
+##📁Folder Structures
 employment-payroll-management-system/
+```c
+├── src/
+│   ├── main.c              # Entry point
+│   ├── auth.c              # Login & registration
+│   ├── admin.c             # Admin functions
+│   ├── employee.c          # Employee functions
+│   ├── payroll.c           # Payroll calculations
 │
-├── main.c
-│
-├── headers/
+├── header/
 │   ├── auth.h
+│   ├── admin.h
 │   ├── employee.h
 │   ├── payroll.h
 │
-├── src/
-│   ├── auth.c
-│   ├── employee.c
-│   ├── payroll.c
-│
 ├── data/
-│   ├── users.dat
+│   ├── admins.dat
 │   ├── employees.dat
 │   ├── payroll.dat
 │
 ├── docs/
-│   └── project-report.md
+│   ├── architecture.md
+│   ├── flowchart.png
+│   └── report.pdf
 │
-├── .gitignore
-└── README.md
+├── README.md
+```
+---
 
-💾 Data Storage
+## 📋 Menu System
 
-The project uses binary .dat files to store information permanently:
+### Main menu
+```
+1.Login
+2.Exit
+```
+### Admin Menu
+```
+1.Add Employee
+2.View Employees
+3.Process Payroll
+4.View Payroll Report
+5.Logout
+```
+### Employee Menu
+```
+1.View Profile
+2.View Salary Details
+3.Logout
+```
+## ▶️ How to Run the Project
 
-File Name	Description
-users.dat	Stores user credentials and roles
-employees.dat	Stores employee details
-payroll.dat	Stores payroll and salary data
-▶️ How to Compile and Run
-Compile:
-gcc main.c src/*.c -o payroll
-
-Run:
+```bash
+gcc src/*.c -o payroll
 ./payroll
-
-🔄 Program Flow
-
-User/Admin logs into the system
-
-System checks role
-
-Role-based menu is displayed
-
-Allowed operations are performed
-
-Data is stored or retrieved from files
-
-🧠 Key Learning Outcomes
-
-Understanding of role-based authentication
-
-Practical experience with file handling in C
-
-Modular programming and project structuring
-
-Real-world application development using C
-
-Version control using GitHub
-
-🚀 Future Enhancements
-
-Password encryption
-
-Attendance management
-
-Payslip export (PDF/Text)
-
-GUI-based interface
-
-Database integration
-
-📄 Conclusion
-
-This project successfully implements a Payroll Management System using the C programming language.
-It follows a modular, scalable, and real-world approach, making it suitable for academic and learning purposes.
-
-👨‍💻 Developed By
-
-Soyam Bhalotia
-(Employment Payroll Management System – C Project)
