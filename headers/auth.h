@@ -1,6 +1,8 @@
 #ifndef AUTH_H
 #define AUTH_H
+#include "models.h"
 
-int login(char *role);
+void registerUser();
+int login(char *role, char *username);
 
 #endif

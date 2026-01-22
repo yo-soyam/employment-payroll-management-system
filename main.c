@@ -1,22 +1,65 @@
 
+#include "headers/admin.h"
 #include "headers/auth.h"
+#include "headers/employee.h"
 #include <stdio.h>
 #include <string.h>
 
 int main() {
   char role[20];
+  char username[50];
+  int attempts = 3;
+  int success = 0;
+  int n;
+  printf("\n");
+  printf("Welcome to Employment Payroll Management System\n");
+  printf("Enter 1 to register\n");
+  printf("Enter 2 to login\n");
+  printf("Enter 3 to exit\n");
+  scanf("%d", &n);
 
-  if (login(role)) {
-    if (strcmp(role, "ADMIN") == 0) {
-      printf("Welcome Admin!\n");
-      // Admin menu here
-    } else if (strcmp(role, "EMPLOYEE") == 0) {
-      printf("Welcome Employee!\n");
-      // Employee menu here
-    }
-  } else {
-    printf("Access Denied.\n");
+  if (n == 1) {
+    registerUser();
+    printf("Please restart the application to login.\n");
+    return 0;
   }
 
+  if (n == 2) {
+    while (attempts > 0) {
+      if (login(role, username)) {
+        success = 1;
+        break;
+      } else {
+        attempts--;
+        if (attempts > 0) {
+          printf("login failed! %d attempts remaining\n", attempts);
+        } else {
+          // yaha par agar attempt 0 hua toh exit  ho jayega
+        }
+      }
+    }
+
+    if (success) {
+      if (strcmp(role, "ADMIN") == 0) {
+        printf("Welcome Admin!\n");
+        // Admin menu here
+        adminMenu();
+      } else {
+        printf("Welcome Employee!\n");
+        // Employee menu here
+        employeeMenu(username);
+      }
+    } else {
+      printf("Maximum login attempts reached. Exiting...\n");
+      return 1;
+    }
+
+  } else if (n == 3) {
+    printf("Exiting...\n");
+    return 0;
+  } else {
+    printf("Invalid input. Please try again.\n");
+    return 1;
+  }
   return 0;
 }
