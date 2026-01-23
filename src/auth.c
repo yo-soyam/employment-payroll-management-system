@@ -6,10 +6,23 @@
 
 void registerUser() {
   struct User u;
+  int choice;
   printf("Enter username: ");
   scanf("%s", u.username);
   printf("Enter password: ");
   scanf("%s", u.password);
+
+  printf("Select user role:\n");
+  printf("1. Admin\n");
+  printf("2. Employee\n");
+  printf("Enter choice: ");
+  scanf("%d", &choice);
+
+  if (choice == 1) {
+    strcpy(u.role, "ADMIN");
+  } else {
+    strcpy(u.role, "EMPLOYEE");
+  }
 
   FILE *fp = fopen("data/users.dat", "a");
   if (fp == NULL) {
@@ -19,6 +32,7 @@ void registerUser() {
 
   fprintf(fp, "%s %s %s\n", u.username, u.password, u.role);
   fclose(fp);
+  printf("Registration Successful! Please login.\n");
 }
 
 int login(char *role, char *username) {

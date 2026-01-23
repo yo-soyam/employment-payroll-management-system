@@ -1,7 +1,7 @@
-
 #include "headers/admin.h"
 #include "headers/auth.h"
 #include "headers/employee.h"
+#include "headers/utils.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -11,11 +11,13 @@ int main() {
   int attempts = 3;
   int success = 0;
   int n;
-  printf("\n");
-  printf("Welcome to Employment Payroll Management System\n");
-  printf("Enter 1 to register\n");
-  printf("Enter 2 to login\n");
-  printf("Enter 3 to exit\n");
+
+  clearScreen();
+  printHeader("Employment Payroll Management System");
+  printf("1. Register\n");
+  printf("2. Login\n");
+  printf("3. Exit\n");
+  printf("Enter your choice: ");
   scanf("%d", &n);
 
   if (n == 1) {

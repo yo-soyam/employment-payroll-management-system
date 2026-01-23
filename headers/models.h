@@ -17,10 +17,12 @@ struct employee {
 };
 
 struct payroll {
-  int id;
+  int empId;
+  char name[30];
+  float basic;
   float allowance;
-  float deductions;
-  float net_salary;
+  float deduction;
+  float netSalary;
 };
 
 #endif
