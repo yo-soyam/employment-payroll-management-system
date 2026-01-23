@@ -8,62 +8,76 @@
 #include <string.h>
 
 int main() {
-  char role[20];
-  char username[50];
-  int attempts = 3;
-  int success = 0;
   int n;
 
-  clearScreen();
-  printHeader("Employment Payroll Management System");
-  printf("1. Register\n");
-  printf("2. Login\n");
-  printf("3. Exit\n");
-  printf("Enter your choice: ");
-  scanf("%d", &n);
+  while (1) {
+    char role[20] = "";
+    char username[50] = "";
+    int attempts = 3;
+    int success = 0;
 
-  if (n == 1) {
-    registerUser();
-    printf("Please restart the application to login.\n");
-    return 0;
-  }
+    // Clear buffer if needed, though mostly handled by scanf
 
-  if (n == 2) {
-    while (attempts > 0) {
-      if (login(role, username)) {
-        success = 1;
-        break;
-      } else {
-        attempts--;
-        if (attempts > 0) {
-          printf("login failed! %d attempts remaining\n", attempts);
+    clearScreen();
+    printHeader("Employment Payroll Management System");
+    printf("1. Register\n");
+    printf("2. Login\n");
+    printf("3. Exit\n");
+    printf("Enter your choice: ");
+    if (scanf("%d", &n) != 1) {
+      // Handle non-integer input to avoid infinite loop
+      while (getchar() != '\n')
+        ;
+      continue;
+    }
+
+    if (n == 1) {
+      registerUser();
+      printf("\nPress Enter to return to main menu...");
+      while (getchar() != '\n')
+        ;        // clear buffer
+      getchar(); // wait for enter
+    } else if (n == 2) {
+      while (attempts > 0) {
+        if (login(role, username)) {
+          success = 1;
+          break;
         } else {
-          // yaha par agar attempt 0 hua toh exit  ho jayega
+          attempts--;
+          if (attempts > 0) {
+            printf("login failed! %d attempts remaining\n", attempts);
+          }
         }
       }
-    }
 
-    if (success) {
-      if (strcmp(role, "ADMIN") == 0) {
-        printf("Welcome Admin!\n");
-        // Admin menu here
-        adminMenu();
+      if (success) {
+        if (strcmp(role, "ADMIN") == 0) {
+          printf("Welcome Admin!\n");
+          adminMenu();
+        } else {
+          printf("Welcome Employee!\n");
+          employeeMenu(username);
+        }
+        // After returning from menus, the loop continues, showing the main menu
+        // again
       } else {
-        printf("Welcome Employee!\n");
-        // Employee menu here
-        employeeMenu(username);
+        printf("Maximum login attempts reached.\n");
+        printf("Press Enter to return to execution...\n");
+        while (getchar() != '\n')
+          ;
+        getchar();
       }
-    } else {
-      printf("Maximum login attempts reached. Exiting...\n");
-      return 1;
-    }
 
-  } else if (n == 3) {
-    printf("Exiting...\n");
-    return 0;
-  } else {
-    printf("Invalid input. Please try again.\n");
-    return 1;
+    } else if (n == 3) {
+      printf("Exiting...\n");
+      return 0;
+    } else {
+      printf("Invalid input. Please try again.\n");
+      printf("Press Enter to continue...");
+      while (getchar() != '\n')
+        ;
+      getchar();
+    }
   }
   return 0;
 }
