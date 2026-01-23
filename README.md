@@ -189,3 +189,17 @@ employment-payroll-management-system/
 ```bash
 gcc src/*.c -o payroll
 ./payroll
+```
+
+---
+
+## 👥 Team Members & Task Assignments
+
+| Member | Role | Assigned Task |
+|--------|------|---------------|
+| **Soyam (Lead)** | Team Lead | Project Architecture, System Integration, Main Logic |
+| **Shreyash** | Developer | Authentication Module (Login/Registration) |
+| **Shuvangi** | Developer | Admin Module (Employee Management) |
+| **Shristi** | Developer | Payroll Module (Salary Processing) |
+| **Sohan** | Developer | Employee Module (Profile & Salary View) & File Handling |
+
