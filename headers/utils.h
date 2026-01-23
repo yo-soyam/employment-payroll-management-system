@@ -5,5 +5,6 @@ void clearScreen();
 void printHeader(const char *title);
 void printDivider();
 void waitForEnter();
+void setupWorkingDirectory();
 
 #endif

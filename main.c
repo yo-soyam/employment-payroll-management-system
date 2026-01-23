@@ -8,6 +8,7 @@
 #include <string.h>
 
 int main() {
+  setupWorkingDirectory();
   int n;
 
   while (1) {
