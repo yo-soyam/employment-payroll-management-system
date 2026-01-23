@@ -1,3 +1,5 @@
+// beautification is done by gemini
+// code is written by soyam bhalotia
 #include "headers/admin.h"
 #include "headers/auth.h"
 #include "headers/employee.h"
