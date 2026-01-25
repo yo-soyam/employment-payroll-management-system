@@ -12,7 +12,11 @@ void viewProfile(char *username) {
   printHeader("My Profile");
 
   if (fp == NULL) {
-    printf("Unable to access employee records.\n");
+    if (fp == NULL) {
+      printError("Unable to access employee records.");
+      waitForEnter();
+      return;
+    }
     waitForEnter();
     return;
   }
@@ -32,7 +36,9 @@ void viewProfile(char *username) {
   }
 
   if (!found) {
-    printf("Profile not found for user: %s\n", username);
+    if (!found) {
+      printError("Profile not found for user.");
+    }
   }
 
   fclose(fp);
@@ -48,26 +54,32 @@ void viewSalary(char *username) {
   printHeader("My Salary Records");
 
   if (fp == NULL) {
-    printf("Unable to access payroll records.\n");
+    if (fp == NULL) {
+      printError("Unable to access payroll records.");
+      waitForEnter();
+      return;
+    }
     waitForEnter();
     return;
   }
 
-  printf("%-10s %-20s %-10s %-10s %-10s %-10s\n", "ID", "Name", "Basic",
-         "Allow", "Deduct", "Net");
+  printf(COLOR_BOLD "%-10s %-20s %-15s %-10s %-10s %-10s %-10s\n" COLOR_RESET,
+         "ID", "Name", "Date", "Basic", "Allow", "Deduct", "Net");
   printDivider();
 
-  while (fscanf(fp, "%d %s %f %f %f %f\n", &p.empId, p.name, &p.basic,
-                &p.allowance, &p.deduction, &p.netSalary) == 6) {
+  while (fscanf(fp, "%d %s %s %f %f %f %f\n", &p.empId, p.name, p.date,
+                &p.basic, &p.allowance, &p.deduction, &p.netSalary) == 7) {
     if (strcmp(p.name, username) == 0) {
       found = 1;
-      printf("%-10d %-20s %-10.2f %-10.2f %-10.2f %-10.2f\n", p.empId, p.name,
-             p.basic, p.allowance, p.deduction, p.netSalary);
+      printf("%-10d %-20s %-15s %-10.2f %-10.2f %-10.2f %-10.2f\n", p.empId,
+             p.name, p.date, p.basic, p.allowance, p.deduction, p.netSalary);
     }
   }
 
   if (!found) {
-    printf("\nNo salary records found for user: %s\n", username);
+    if (!found) {
+      printError("No salary records found for user.");
+    }
   }
 
   fclose(fp);
@@ -81,9 +93,9 @@ void employeeMenu(char *username) {
     printHeader("Employee Menu");
     printf("Welcome, %s\n", username);
     printDivider();
-    printf("1. View Profile\n");
-    printf("2. View Salary Details\n");
-    printf("3. Logout\n");
+    printMenuOption(1, "View Profile");
+    printMenuOption(2, "View Salary Details");
+    printMenuOption(3, "Logout");
     printDivider();
     printf("Enter your choice: ");
     scanf("%d", &choice);
@@ -96,7 +108,7 @@ void employeeMenu(char *username) {
       viewSalary(username);
       break;
     case 3:
-      printf("Logging out...\n");
+      printSuccess("Logging out...");
       break;
     default:
       printf("Invalid choice! Please try again.\n");

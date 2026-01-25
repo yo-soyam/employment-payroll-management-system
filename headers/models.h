@@ -19,6 +19,7 @@ struct employee {
 struct payroll {
   int empId;
   char name[30];
+  char date[20];
   float basic;
   float allowance;
   float deduction;

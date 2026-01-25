@@ -4,9 +4,11 @@
 void adminMenu();
 void addEmployee();
 void viewAllEmployees();
-void updateEmployeeSalary();
+void searchEmployee();
+void updateEmployee();
 void adminDeleteEmployee();
 void adminGeneratePayroll();
 void adminViewPayroll();
+void searchPayrollHistory();
 
 #endif

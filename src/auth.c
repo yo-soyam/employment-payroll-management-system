@@ -1,4 +1,5 @@
 #include "../headers/auth.h"
+#include "../headers/utils.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -7,14 +8,16 @@
 void registerUser() {
   struct User u;
   int choice;
+  clearScreen();
+  printHeader("Register New User");
   printf("Enter username: ");
   scanf("%s", u.username);
   printf("Enter password: ");
   scanf("%s", u.password);
 
-  printf("Select user role:\n");
-  printf("1. Admin\n");
-  printf("2. Employee\n");
+  printf("\nSelect user role:\n");
+  printMenuOption(1, "Admin");
+  printMenuOption(2, "Employee");
   printf("Enter choice: ");
   scanf("%d", &choice);
 
@@ -26,13 +29,13 @@ void registerUser() {
 
   FILE *fp = fopen("data/users.dat", "a");
   if (fp == NULL) {
-    printf("Error opening user database.\n");
+    printError("Error opening user database.");
     return;
   }
 
   fprintf(fp, "%s %s %s\n", u.username, u.password, u.role);
   fclose(fp);
-  printf("Registration Successful! Please login.\n");
+  printSuccess("Registration Successful! Please login.");
 }
 
 int login(char *role, char *username) {
@@ -48,7 +51,7 @@ int login(char *role, char *username) {
 
   FILE *fp = fopen("data/users.dat", "r");
   if (fp == NULL) {
-    printf("Error opening user database.\n");
+    printError("Error opening user database.");
     return 0;
   }
 
@@ -67,10 +70,10 @@ int login(char *role, char *username) {
   fclose(fp);
 
   if (found) {
-    printf("\nLogin Successful!\n");
+    printSuccess("Login Successful!");
     return 1;
   } else {
-    printf("\nInvalid username or password.\n");
+    printError("Invalid username or password.");
     return 0;
   }
 }

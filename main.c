@@ -21,9 +21,10 @@ int main() {
 
     clearScreen();
     printHeader("Employment Payroll Management System");
-    printf("1. Register\n");
-    printf("2. Login\n");
-    printf("3. Exit\n");
+    printMenuOption(1, "Register");
+    printMenuOption(2, "Login");
+    printMenuOption(3, "Exit");
+    printDivider();
     printf("Enter your choice: ");
     if (scanf("%d", &n) != 1) {
       // Handle non-integer input to avoid infinite loop
@@ -53,20 +54,19 @@ int main() {
 
       if (success) {
         if (strcmp(role, "ADMIN") == 0) {
-          printf("Welcome Admin!\n");
+          printSuccess("Welcome Admin!");
+          waitForEnter();
           adminMenu();
         } else {
-          printf("Welcome Employee!\n");
+          printSuccess("Welcome Employee!");
+          waitForEnter();
           employeeMenu(username);
         }
         // After returning from menus, the loop continues, showing the main menu
         // again
       } else {
-        printf("Maximum login attempts reached.\n");
-        printf("Press Enter to return to execution...\n");
-        while (getchar() != '\n')
-          ;
-        getchar();
+        printError("Maximum login attempts reached.");
+        waitForEnter();
       }
 
     } else if (n == 3) {

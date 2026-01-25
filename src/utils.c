@@ -12,14 +12,44 @@ void clearScreen() {
 }
 
 void printDivider() {
-  printf("---------------------------------------------------------------------"
-         "\n");
+  printf(COLOR_CYAN
+         "====================================================================="
+         "================\n" COLOR_RESET);
+}
+
+void printCentered(const char *text) {
+  int width = 80; // Assuming standard width
+  int len = 0;
+  while (text[len] != '\0')
+    len++;
+  int padding = (width - len) / 2;
+  if (padding < 0)
+    padding = 0;
+
+  for (int i = 0; i < padding; i++)
+    printf(" ");
+  printf("%s\n", text);
 }
 
 void printHeader(const char *title) {
+  printf("\n");
   printDivider();
-  printf("  %s\n", title);
+  printf(COLOR_BOLD COLOR_CYAN);
+  printCentered(title);
+  printf(COLOR_RESET);
   printDivider();
+}
+
+void printSuccess(const char *msg) {
+  printf(COLOR_GREEN "\n[SUCCESS] %s\n" COLOR_RESET, msg);
+}
+
+void printError(const char *msg) {
+  printf(COLOR_RED "\n[ERROR] %s\n" COLOR_RESET, msg);
+}
+
+void printMenuOption(int option, const char *text) {
+  printf(COLOR_YELLOW "  [%d] " COLOR_RESET "%s\n", option, text);
 }
 
 void waitForEnter() {
